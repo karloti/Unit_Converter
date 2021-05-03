@@ -1,0 +1,68 @@
+# Project exclude paths
+/.gradle/
+/Topics/Companion object/Board game basics  Player/out/
+/Topics/Companion object/Board game basics  Player/out/production/classes/
+/Topics/Companion object/Companion/out/
+/Topics/Companion object/Companion/out/production/classes/
+/Topics/Companion object/Fix an error/out/
+/Topics/Companion object/Fix an error/out/production/classes/
+/Topics/Companion object/Fix me/out/
+/Topics/Companion object/Fix me/out/production/classes/
+/Topics/Companion object/Theory/out/
+/Topics/Companion object/Theory/out/production/classes/
+/Topics/For loop and ranges/Check the order/out/
+/Topics/For loop and ranges/Check the order/out/production/classes/
+/Topics/For loop and ranges/Count the numbers/out/
+/Topics/For loop and ranges/Count the numbers/out/production/classes/
+/Topics/For loop and ranges/Fizz Buzz/out/
+/Topics/For loop and ranges/Fizz Buzz/out/production/classes/
+/Topics/For loop and ranges/The longest sequence/out/
+/Topics/For loop and ranges/The longest sequence/out/production/classes/
+/Topics/For loop and ranges/The maximum pairwise product/out/
+/Topics/For loop and ranges/The maximum pairwise product/out/production/classes/
+/Topics/For loop and ranges/The minimum value of N numbers/out/
+/Topics/For loop and ranges/The minimum value of N numbers/out/production/classes/
+/Topics/For loop and ranges/The product of numbers from a to b/out/
+/Topics/For loop and ranges/The product of numbers from a to b/out/production/classes/
+/Topics/For loop and ranges/The roots of equation/out/
+/Topics/For loop and ranges/The roots of equation/out/production/classes/
+/Topics/For loop and ranges/The sum of integers from a to b/out/
+/Topics/For loop and ranges/The sum of integers from a to b/out/production/classes/
+/Topics/For loop and ranges/The sum of N numbers/out/
+/Topics/For loop and ranges/The sum of N numbers/out/production/classes/
+/Topics/For loop and ranges/Theory/out/
+/Topics/For loop and ranges/Theory/out/production/classes/
+/Topics/Jumps and returns/Beyond the word/out/
+/Topics/Jumps and returns/Beyond the word/out/production/classes/
+/Topics/Jumps and returns/First digit/out/
+/Topics/Jumps and returns/First digit/out/production/classes/
+/Topics/Jumps and returns/Getting letters from the Alphabet/out/
+/Topics/Jumps and returns/Getting letters from the Alphabet/out/production/classes/
+/Topics/Jumps and returns/Placement of ships/out/
+/Topics/Jumps and returns/Placement of ships/out/production/classes/
+/Topics/Jumps and returns/Theory/out/
+/Topics/Jumps and returns/Theory/out/production/classes/
+/Topics/Mutable Map/Letters/out/
+/Topics/Mutable Map/Letters/out/production/classes/
+/Topics/Mutable Map/Most common/out/
+/Topics/Mutable Map/Most common/out/production/classes/
+/Topics/Mutable Map/Theory/out/
+/Topics/Mutable Map/Theory/out/production/classes/
+/Topics/Mutable Map/Vowels/out/
+/Topics/Mutable Map/Vowels/out/production/classes/
+/Topics/Object declarations/Manager/out/
+/Topics/Object declarations/Manager/out/production/classes/
+/Topics/Processing strings/Create an euphonious word/out/
+/Topics/Processing strings/Create an euphonious word/out/production/classes/
+/Topics/Processing strings/Lucky number/out/
+/Topics/Processing strings/Lucky number/out/production/classes/
+/Topics/Processing strings/Number of occurrences/out/
+/Topics/Processing strings/Number of occurrences/out/production/classes/
+/Topics/Processing strings/Piece of alphabet/out/
+/Topics/Processing strings/Piece of alphabet/out/production/classes/
+/Topics/Processing strings/The longest word/out/
+/Topics/Processing strings/The longest word/out/production/classes/
+/Unit Converter/task/build/
+/Unit Converter/task/out/
+/Unit Converter/task/out/production/classes/
+/Unit Converter/task/out/test/classes/
