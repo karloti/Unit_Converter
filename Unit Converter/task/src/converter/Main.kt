@@ -1,88 +1,102 @@
 package converter
 
-interface IMetrics {
-    val names: Array<out String>
-}
+interface IMetrics { val names: Array<out String> }
 
 enum class Length(override vararg val names: String) : IMetrics {
-    METER("m", "meter", "meters"),
-    KILOMETER("km", "kilometer", "kilometers"),
-    CENTIMETER("cm", "centimeter", "centimeters"),
-    MILLIMETER("mm", "millimeter", "millimeters"),
-    MILE("mi", "mile", "miles"),
-    YARD("yd", "yard", "yards"),
-    FEE("ft", "foot", "feet"),
-    INCH("in", "inch", "inches"),
-    ;
-
-    companion object {
-        val HUB = METER
-    }
+    METER("meter", "meters", "m"),
+    KILOMETER("kilometer", "kilometers", "km"),
+    CENTIMETER("centimeter", "centimeters", "cm"),
+    MILLIMETER("millimeter", "millimeters", "mm"),
+    MILE("mile", "miles", "mi"),
+    YARD("yard", "yards", "yd"),
+    FEE("foot", "feet", "ft"),
+    INCH("inch", "inches", "in");
+    companion object { val HUB = METER }
 }
 
 enum class Weight(override vararg val names: String) : IMetrics {
-    GRAM("g", "gram", "grams"),
-    KILOGRAM("kg", "kilogram", "kilograms"),
-    MILLIGRAM("mg", "milligram", "milligrams"),
-    POUND("lb", "pound", "pounds"),
-    OUNCE("oz", "ounce", "ounces"),
-    ;
-
-    companion object {
-        val HUB = GRAM
-    }
+    GRAM("gram", "grams", "g"),
+    KILOGRAM("kilogram", "kilograms", "kg"),
+    MILLIGRAM("milligram", "milligrams", "mg"),
+    POUND("pound", "pounds", "lb"),
+    OUNCE("ounce", "ounces", "oz");
+    companion object { val HUB = GRAM }
 }
 
-fun convert(pairedMetrics: Pair<IMetrics?, IMetrics?>): Double? = when (pairedMetrics) {
-    Length.METER to Length.HUB -> 1.0
-    Length.KILOMETER to Length.HUB -> 1000.0
-    Length.CENTIMETER to Length.HUB -> 0.01
-    Length.MILLIMETER to Length.HUB -> 0.001
-    Length.MILE to Length.HUB -> 1609.35
-    Length.YARD to Length.HUB -> 0.9144
-    Length.FEE to Length.HUB -> 0.3048
-    Length.INCH to Length.HUB -> 0.0254
-    Weight.GRAM to Weight.HUB -> 1.0
-    Weight.KILOGRAM to Weight.HUB -> 1000.0
-    Weight.MILLIGRAM to Weight.HUB -> 0.001
-    Weight.POUND to Weight.HUB -> 453.592
-    Weight.OUNCE to Weight.HUB -> 28.3495
+enum class Temperature(override vararg val names: String) : IMetrics {
+    CELSIUS("degree Celsius", "degrees Celsius", "celsius", "dc", "c"),
+    FAHRENHEIT("degree Fahrenheit", "degrees Fahrenheit", "fahrenheit", "df", "f"),
+    KELVINS("kelvin", "kelvins", "k");
+    companion object { val HUB = CELSIUS }
+}
+
+fun Double.convert(pairedMetrics: Pair<IMetrics?, IMetrics?>): Double? = when (pairedMetrics) {
+    Length.METER to Length.HUB -> this
+    Length.KILOMETER to Length.HUB -> this * 1000.0
+    Length.CENTIMETER to Length.HUB -> this * 0.01
+    Length.MILLIMETER to Length.HUB -> this * 0.001
+    Length.MILE to Length.HUB -> this * 1609.35
+    Length.YARD to Length.HUB -> this * 0.9144
+    Length.FEE to Length.HUB -> this * 0.3048
+    Length.INCH to Length.HUB -> this * 0.0254
+    Weight.GRAM to Weight.HUB -> this
+    Weight.KILOGRAM to Weight.HUB -> this * 1000.0
+    Weight.MILLIGRAM to Weight.HUB -> this * 0.001
+    Weight.POUND to Weight.HUB -> this * 453.592
+    Weight.OUNCE to Weight.HUB -> this * 28.3495
+    Temperature.CELSIUS to Temperature.HUB -> this
+    Temperature.KELVINS to Temperature.HUB -> this - 273.15
+    Temperature.FAHRENHEIT to Temperature.HUB -> (this - 32) * 5 / 9
+    Length.HUB to Length.METER -> this
+    Length.HUB to Length.KILOMETER -> this / 1000.0
+    Length.HUB to Length.CENTIMETER -> this / 0.01
+    Length.HUB to Length.MILLIMETER -> this / 0.001
+    Length.HUB to Length.MILE -> this / 1609.35
+    Length.HUB to Length.YARD -> this / 0.9144
+    Length.HUB to Length.FEE -> this / 0.3048
+    Length.HUB to Length.INCH -> this / 0.0254
+    Weight.HUB to Weight.GRAM -> this
+    Weight.HUB to Weight.KILOGRAM -> this / 1000.0
+    Weight.HUB to Weight.MILLIGRAM -> this / 0.001
+    Weight.HUB to Weight.POUND -> this / 453.592
+    Weight.HUB to Weight.OUNCE -> this / 28.3495
+    Temperature.HUB to Temperature.CELSIUS -> this
+    Temperature.HUB to Temperature.FAHRENHEIT -> this * 9 / 5 + 32
+    Temperature.HUB to Temperature.KELVINS -> this + 273.15
     else -> null
 }
+
+fun String.koko(metric: IMetrics) = metric.names.any { it.equals(this, true) }
+
+fun String.getEnum(): IMetrics? = Length.values().firstOrNull(::koko)
+    ?: Weight.values().firstOrNull(::koko)
+    ?: Temperature.values().firstOrNull(::koko)
 
 fun IMetrics.getHUB(): IMetrics? = when (this) {
     is Length -> Length.HUB
     is Weight -> Weight.HUB
+    is Temperature -> Temperature.HUB
     else -> null
 }
-
-fun String.getEnum(): IMetrics? =
-    Length.values().firstOrNull { it.names.contains(toLowerCase()) }
-        ?: Weight.values().firstOrNull { it.names.contains(toLowerCase()) }
 
 fun main() {
     while (true) {
         print("Enter what you want to convert (or exit): ")
-        val strings = readLine()!!.split(" ")
-
-        if (strings.first() == "exit") return
-
-        val number = strings.first().toDoubleOrNull() ?: continue
-        val measure1: IMetrics? = strings.getOrNull(1)?.getEnum()
-        val measure2: IMetrics? = strings.getOrNull(3)?.getEnum()
-
-        val result =
-            if (measure1?.getHUB() == measure2?.getHUB())
-                convert(measure2 to measure2?.getHUB())
-                    ?.let { convert(measure1 to measure1?.getHUB())?.div(it) }
-                    ?.times(number)
-            else null
-
-        val measureStr1 = measure1?.names?.get(if (number == 1.0 && result != null) 1 else 2) ?: "???"
-        val measureStr2 = measure2?.names?.get(if (result == 1.0) 1 else 2) ?: "???"
-
-        println(if (result == null)
-            "Conversion from $measureStr1 to $measureStr2 is impossible" else
-            "%s %s is %s %s".format(number, measureStr1, result, measureStr2))
+        val matchResult = Regex("exit|(-?\\d+\\.?\\d*)\\s(.+)\\s(?:to|in|convertTo)\\s(.+)")
+            .find(readLine()!!) ?: continue
+        if (matchResult.value == "exit") return
+        val number = matchResult.groupValues[1].toDoubleOrNull() ?: continue
+        val unit1 = matchResult.groupValues[2].getEnum()
+        val unit2 = matchResult.groupValues[3].getEnum()
+        val result = if (unit1?.getHUB() != unit2?.getHUB()) null else
+            number.convert(unit1 to unit1?.getHUB())?.convert(unit2?.getHUB() to unit2)
+        val unitStr1 = unit1?.names?.get(if (number == 1.0 && result != null) 0 else 1) ?: "???"
+        val unitStr2 = unit2?.names?.get(if (result == 1.0) 0 else 1) ?: "???"
+        when {
+            result == null -> "Conversion from $unitStr1 to $unitStr2 is impossible"
+            number < 0 && (unit1 is Length) -> "Length shouldn't be negative"
+            number < 0 && (unit1 is Weight) -> "Weight shouldn't be negative"
+            else -> "%s %s is %s %s".format(number, unitStr1, result, unitStr2)
+        }.let(::println)
     }
 }
